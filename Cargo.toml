@@ -1,0 +1,43 @@
+[package]
+name = "rlt"
+version = "0.2.0"
+authors = ["Wenxuan Zhang <wenxuangm@gmail.com>"]
+description = "A universal load testing library for Rust, with real-time TUI support"
+categories = [
+    "visualization",
+    "command-line-utilities",
+    "development-tools::profiling",
+]
+edition = "2021"
+keywords = ["performance", "load-testing", "benchmark", "cli"]
+license = "MIT OR Apache-2.0"
+readme = "README.md"
+repository = "https://github.com/wfxr/rlt"
+
+[lib]
+name = "rlt"
+path = "src/lib.rs"
+
+[features]
+default = ["tracing", "rate_limit", "http"]
+tracing = ["dep:log", "dep:tracing", "dep:tui-logger"]
+rate_limit = ["dep:governor"]
+http = ["dep:http"]
+
+[dependencies]
+
+[dev-dependencies]
+tokio = { version = "1.36", features = ["rt-multi-thread"] }
+bytes = "1.6"
+http-body-util = "0.1"
+hyper = { version = "1.2", features = ["client"] }
+hyper-tls = "0.6"
+hyper-util = { version = "0.1", features = [
+    "client",
+    "client-legacy",
+    "http1",
+    "tokio",
+] }
+reqwest = "0.12"
+tokio-postgres = "0.7"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
